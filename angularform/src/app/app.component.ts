@@ -5,6 +5,9 @@ import { AccountService } from './account.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TransferService } from './transfer.service';
 import { NgForm } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +22,11 @@ export class AppComponent implements OnInit {
   amount = '';
   public accounts!: Account[];
   public transfers!: Transfer[];
+  accCodes: string[];
 
   constructor(private accountService: AccountService,
-              private transferService: TransferService){}
+              private transferService: TransferService,
+              private searchServise: NgbTypeaheadConfig){}
 
   ngOnInit() {
     this.getAccounts();
@@ -32,6 +37,7 @@ export class AppComponent implements OnInit {
     this.accountService.getAccounts().subscribe(
       (response: Account[]) => {
         this.accounts = response;
+        this.getAccCodes();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -65,9 +71,22 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public getAccCodes(): void {
+      this.accCodes = this.accounts.map((v) =>  v.code)
+  }
+
   closeAlert() {
     this.successAlert=false;
     this.failedAlert=false;
   }
+
+  search = (text$: Observable<string>) =>
+      text$.pipe(
+			debounceTime(200),
+			distinctUntilChanged(),
+			map((term) =>
+				this.accCodes.filter((v) => v.toLowerCase().includes(term.toLocaleLowerCase())).splice(0, 10),
+			),
+		);
 
 }

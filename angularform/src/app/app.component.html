@@ -26,24 +26,18 @@
                   <form #transferForm="ngForm" (ngSubmit)="onCreateTransfer(transferForm)">
                   <div class="form-group">
                     <label for="input-debit">Debit Account</label>
-                    <input type="text" ngModel name="debitAccountCode" #input required class="form-control" list="list-accs" id="input-debit" placeholder="choose debit account">
-                    <datalist id="list-accs">
-                      <option *ngFor="let account of accounts">{{account?.code}}</option>
-                    </datalist>
+                    <input type="text" [(ngModel)]="debit" name="debitAccountCode" #input required class="form-control" placeholder="enter debit account" [ngbTypeahead]="search">
                   </div>
                   <div class="form-group">
                     <label for="input-credit">Credit Account</label>
-                    <input type="text" ngModel #input required name="creditAccountCode" class="form-control" list="list-credit" id="input-credit" placeholder="choose credit account">
-                    <datalist id="list-credit">
-                      <option *ngFor="let account of accounts">{{account?.code}}</option>
-                    </datalist>
+                    <input type="text" [(ngModel)]="credit" name="creditAccountCode" #input required class="form-control" placeholder="enter credit account" [ngbTypeahead]="search">
                   </div>
                   <div class="form-group">
                     <label for="name">Amount</label>
-                    <input type="text" ngModel #input required name="transferAmount" class="form-control" id="name" placeholder="example: 100.00">
+                    <input type="text" ngModel pattern="[0-9.]+" name="transferAmount" #input required class="form-control" placeholder="example: 100.00">
                   </div>
                   <div>
-                    <button [disabled]="!transferForm.valid" class="btn btn-primary">Submit</button> 
+                    <button [disabled]="!transferForm.valid || !accCodes.includes(debit) || !accCodes.includes(credit) || credit === debit" class="btn btn-primary">Submit</button> 
                   </div>
                   </form>
                 </div>
@@ -58,13 +52,13 @@
                 <h4>Accounts</h4>
             </div>
               <div class="card-body">
-                  <div class="table-responsive" style="height: 330px; overflow: auto; outline: none;">
+                  <div class="table-responsive" style="height: 290px; overflow: auto; outline: none; text-align: center">
                       <table class="table table-striped">
                           <thead style="position:sticky; top: 0;">
                               <tr>
-                                  <th>ID</th>
-                                  <th>Code</th>
-                                  <th>Balance</th>
+                                  <th class="col-1">ID</th>
+                                  <th class="col-3">Code</th>
+                                  <th class="col-2">Balance</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -93,7 +87,7 @@
                   <h4>Transfers</h4>
               </div>
               <div class="card-body">
-                  <div class="table-responsive" style="height: 330px; overflow: auto; outline: none;">
+                  <div class="table-responsive" style="height: 330px; overflow: auto; outline: none; text-align: center">
                       <table class="table table-striped">
                           <thead style="position:sticky; top: 0;">
                               <tr>

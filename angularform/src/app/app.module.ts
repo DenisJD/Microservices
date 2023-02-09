@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccountService } from './account.service';
 import { TransferService } from './transfer.service';
-
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { NgbTypeaheadConfig, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,9 +15,14 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbTypeaheadModule
   ],
-  providers: [AccountService, TransferService],
+  providers: [
+    AccountService, 
+    TransferService,
+    NgbTypeaheadConfig
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
