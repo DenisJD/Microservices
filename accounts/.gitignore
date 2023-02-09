@@ -1,0 +1,14 @@
+build
+.gradle
+derby.log
+accountsDataBase.mv.db
+accountsDataBase.trace.db
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/

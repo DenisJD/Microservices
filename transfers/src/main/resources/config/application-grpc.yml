@@ -1,0 +1,7 @@
+grpc:
+  server:
+    port: 7777
+  client:
+    accounts:
+      address: static://localhost:5555
+      negotiation-type: plaintext

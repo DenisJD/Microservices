@@ -1,0 +1,4 @@
+base-url: /api
+
+server:
+  port: ${PORT:5000}

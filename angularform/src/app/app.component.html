@@ -1,0 +1,133 @@
+<nav class="navbar bg-dark">
+  <a class="navbar-brand" style="color:white; margin-left: 15px;">Angular Demo</a>
+</nav>
+<div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success!</strong> The transfer has been send.
+  <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div *ngIf="failedAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Error!</strong> The transfer was not sent.
+  <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<body>
+<div class="container">
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Create transfer</h4>
+            </div>
+            <div class="form">
+                <div class="table-responsive" style="height: 330px; overflow: auto; outline: none;">
+                  <form #transferForm="ngForm" (ngSubmit)="onCreateTransfer(transferForm)">
+                  <div class="form-group">
+                    <label for="input-debit">Debit Account</label>
+                    <input type="text" ngModel name="debitAccountCode" #input required class="form-control" list="list-accs" id="input-debit" placeholder="choose debit account">
+                    <datalist id="list-accs">
+                      <option *ngFor="let account of accounts">{{account?.code}}</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="input-credit">Credit Account</label>
+                    <input type="text" ngModel #input required name="creditAccountCode" class="form-control" list="list-credit" id="input-credit" placeholder="choose credit account">
+                    <datalist id="list-credit">
+                      <option *ngFor="let account of accounts">{{account?.code}}</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Amount</label>
+                    <input type="text" ngModel #input required name="transferAmount" class="form-control" id="name" placeholder="example: 100.00">
+                  </div>
+                  <div>
+                    <button [disabled]="!transferForm.valid" class="btn btn-primary">Submit</button> 
+                  </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Accounts</h4>
+            </div>
+              <div class="card-body">
+                  <div class="table-responsive" style="height: 330px; overflow: auto; outline: none;">
+                      <table class="table table-striped">
+                          <thead style="position:sticky; top: 0;">
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Code</th>
+                                  <th>Balance</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let account of accounts">
+                                <td>
+                                  <h6 class="col-green font-weight-bold">{{account?.id}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{account?.code}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{account?.balance | number: '1.2-2'}}</h6>
+                                </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 col-sm-12 col-md-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4>Transfers</h4>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive" style="height: 330px; overflow: auto; outline: none;">
+                      <table class="table table-striped">
+                          <thead style="position:sticky; top: 0;">
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Debit Account</th>
+                                  <th>Credit Account</th>
+                                  <th>Amount</th>
+                                  <th>Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let transfer of transfers">
+                                <td>
+                                  <h6 class="col-green font-weight-bold">{{transfer?.id}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{transfer?.debitAccountCode}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{transfer?.creditAccountCode}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{transfer?.transferAmount | number: '1.2-2'}}</h6>
+                                </td>
+                                <td>
+                                  <h6 class="mb-0 font-13">{{transfer?.createdAt | date: 'dd/MM/yyyy HH:mm'}}</h6>
+                                </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</body>

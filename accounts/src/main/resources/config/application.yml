@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    include:
+      - db
+      - grpc
+      - jpa
+      - liq
+      - log
+      - server
+
+  application:
+    name: accounts
