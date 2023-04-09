@@ -1,8 +1,8 @@
-### Микросервисы Accounts и Transfers (gRPC), форма на Angular
+### Microservices Accounts and Transfers (gRPC), form on Angular
 
-#### Описание:
-#### Приложение содержит два микросервиса Accounts и Transfers, которые используют gRPC для взаимодействия между собой. UI представлятет собой динамичекую форму на Angular, при помощи которой можно совершить перевод между аккаунтами и увидеть изменения баланса.
+#### Description:
+#### The application contains two microservices Accounts and Transfers, which use gRPC to interact with each other. The UI represents a dynamic form on Angular and you can make a transfer between accounts and see balance changes in real-time without reload page.
 
-#### Демонстрация:
+#### Demo:
 ###
 ![Gif alt](https://github.com/DenisJD/images/raw/main/microservices/demo_ms.gif)
